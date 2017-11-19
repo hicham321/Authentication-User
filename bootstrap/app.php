@@ -10,6 +10,9 @@ $settings= [
 ];
 $app= new \Slim\App(['settings'=> $settings]);
 
+$container = $app-> getContainer();
+
 require __DIR__ .'/../routes/web.php';
 
+require_once __DIR__.'/dependencies.php';
 

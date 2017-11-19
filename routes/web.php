@@ -1,8 +1,14 @@
 <?php
 
 
-$app->get('/home',function($request, $response){
+$app->get('/',function($request, $response){
 
-	return 'home';
 
+    
+	return $this->view->render($response,'home.twig');
 });
+
+$app->get('/home','HomeController:index');
+
+
+
