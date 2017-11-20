@@ -1,8 +1,11 @@
 <?php
-namespace App\Models;
+namespace App;
 
-class User{
-
-
+use Illuminate\Database\Eloquent\Model;
+class User extends Model{
+    
+    protected $table='users';
+    
+    protected $fillable=['userName','password','email'];
 	
 }
