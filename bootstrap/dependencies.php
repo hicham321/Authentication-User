@@ -1,4 +1,5 @@
 <?php
+use Respect\Validation\Validator as v;
 
 // The views
 $container['view']= function($container){
@@ -40,5 +41,7 @@ $container['db']= function($container) use($capsule){
 //Middleware dependencies
 $app->add(new \App\Middleware\OldInputMiddleware($container));
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
+
+v::with('App\\Validation\\Rules\\');
 
 

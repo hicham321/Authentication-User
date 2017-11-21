@@ -27,7 +27,7 @@ class AuthController extends Controller
 
    	$validation = $this->validator->validate($request,[
 
-   		'email'=> v::noWhitespace()->notEmpty(),
+   		'email'=> v::noWhitespace()->notEmpty()->UniqueMail(),
 
    		'name'=> v::noWhitespace()->notEmpty()->alpha(),
 
