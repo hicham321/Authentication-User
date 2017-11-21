@@ -11,20 +11,39 @@
     		</div>
     		<div class="panel-body">
     			<form action="{{path_for('auth.signup')}}" method="post">
-    				<div class="form-group">
+    				<div class="form-group {{ errors.email ? 'has-error' : ''}}" >
     					<label for="email">Email</label>
-    					<input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control">
-    				</div>
-    				<div class="form-group">
-    					<label for="name">Name</label>
-    					<input type="text" name="name" id="name" placeholder="your name" class="form-control">
-    				</div>
-    				<div class="form-group">
-    					<label for="password">Password</label>
-    					<input type="password" name="password" id="password"  class="form-control">
+    					<input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control" value="{{ old.email}}">
+                        <span class="help-block">
+                            {% if errors.email %}
+
+                             {{errors.email | first}}
+                            {% endif %}
+                        </span>
     				</div>
 
-    				<button type="submit" class="btn btn-default">Sign Up</button>
+    				<div class="form-group {{ errors.name ? 'has-error' : ''}}">
+    					<label for="name">Name</label>
+    					<input type="text" name="name" id="name" placeholder="your name" class="form-control" value="{{ old.name}}">
+                         <span class="help-block">
+                            {% if errors.name %}
+
+                             {{errors.name | first}}
+                            {% endif %}
+                        </span>
+    				</div>
+    				<div class="form-group {{ errors.password ? 'has-error' : ''}}">
+    					<label for="password">Password</label>
+    					<input type="password" name="password" id="password"  class="form-control" value="{{ old.name}}">
+                         <span class="help-block">
+                            {% if errors.password %}
+
+                             {{errors.password | first}}
+                            {% endif %}
+                        </span>
+    				</div>
+
+    				<button type="submit" class="btn btn-danger">Sign Up</button>
     				
 
     			</form>

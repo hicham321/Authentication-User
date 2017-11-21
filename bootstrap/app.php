@@ -31,4 +31,3 @@ require_once __DIR__ .'/dbConfig.php';
 require __DIR__ .'/../routes/web.php';
 
 require_once __DIR__.'/dependencies.php';
-
