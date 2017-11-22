@@ -1,6 +1,13 @@
 <?php
 use Respect\Validation\Validator as v;
 
+
+//Authentication
+$container['auth']= function($container){
+
+    return new \App\Auth\Auth;
+};
+
 // The views
 $container['view']= function($container){
     $view= new \Slim\Views\Twig(__DIR__ .'/../resources/views',['cache'=> false,]);
@@ -10,6 +17,10 @@ $container['view']= function($container){
      $container->request->getUri()
 
     ));
+    $view->getEnvironment()->addGlobal('auth', [
+     'check' =>$container->auth->checkAuth(),
+     'user' => $container->auth->user(),
+    ]);
 
     return $view;
 
@@ -19,7 +30,6 @@ $container['validator']= function($container){
 
     return new \App\Validation\Validator;
 };
-
 
 // the controllers 
 $container['HomeController']= function($container){
@@ -37,10 +47,18 @@ $container['db']= function($container) use($capsule){
 
     return $capsule;
 };
+//csrf
+$container['csrf']= function($container){
 
-//Middleware dependencies
+    return new \Slim\Csrf\Guard;
+};
+
+
+//middleware dependencies
 $app->add(new \App\Middleware\OldInputMiddleware($container));
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
+$app->add(new \App\Middleware\CsrfViewMiddleware($container));
+$app->add($container->csrf);
 
 v::with('App\\Validation\\Rules\\');
 

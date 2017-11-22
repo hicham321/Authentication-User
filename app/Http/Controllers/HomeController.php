@@ -11,16 +11,16 @@ class HomeController extends Controller
 {
 
 
-   public function index ($request,$response){
+ public function index ($request,$response){
 
-   	/*$user=User::where('userName', 'kk')->first();
-   	User::create(['userName'=>'jiji'
-   		,'email'=> 'ghfdhf@gherbi']);
-    var_dump($user->email);
-
-
-    die();*/
    	return $this->view->render($response,'home.twig');
+
+ }
+ //takes you to info page
+ public function info ($request,$response){
+
+   	
+   	return $this->view->render($response,'info.twig');
 
  }
 

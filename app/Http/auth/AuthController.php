@@ -14,8 +14,33 @@ class AuthController extends Controller
 
    protected $redirectTo='signup';
 
+   //signin  get
+   public function getSignIn($request, $response){
+
+    $this->view->render($response, 'auth/signin.twig');
+   }
+
+
+   //sign up get
+   public function postSignIn($request, $response){
+
+    $auth= $this->auth->
+    attempt($request->getParam('email'),
+            $request->getParam('password')
+       );
+    //return to signin page when incorrect
+    if (!$auth) {
+         return $response->withRedirect($this->router->pathFor('auth.signin'));   
+    }
+
+    return $response->withRedirect($this->router->pathFor('home'));  
+    
+   }
+
    //sign up function
    public function getSignUp($request, $response){
+
+    
 
    	return $this->view->render($response, 'auth/signup.twig');
 
