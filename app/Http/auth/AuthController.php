@@ -21,7 +21,7 @@ class AuthController extends Controller
    }
 
 
-   //sign up get
+   //sign in post
    public function postSignIn($request, $response){
 
     $auth= $this->auth->
@@ -73,13 +73,26 @@ class AuthController extends Controller
     $user->password= password_hash($request->getParam('password'),PASSWORD_DEFAULT);
 
     if($user->save()){
-    	//success 
-        return $response->withRedirect($this->router->pathFor('home'));
+    	//success flash message
+      $this->flash->addMessage('info',' User signed up with success');
+      //attempt to sign in the user after signing up
+      $this->auth->attempt($request->getParam('email'),
+            $request->getParam('password'));
+
+      return $response->withRedirect($this->router->pathFor('home'));
     }
     else{
         //flash failure message
-    	echo 'something went wrong';
-    }
+        $this->flash->addMessage('error','Couldn\'t add user, something went wrong');
+     }
+
+   }
+   // sign out method
+   public function getSignOut($request, $response){
+    
+     $this->auth->attemptSignout();
+
+     return $response->withRedirect($this->router->pathFor('home'));
 
    }
 

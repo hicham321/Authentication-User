@@ -22,6 +22,8 @@ $container['view']= function($container){
      'user' => $container->auth->user(),
     ]);
 
+    $view->getEnvironment()->addGlobal('flash', $container->flash);
+
     return $view;
 
 };
@@ -52,7 +54,11 @@ $container['csrf']= function($container){
 
     return new \Slim\Csrf\Guard;
 };
+// flasjh messages
+$container['flash']= function($container){
 
+    return new \Slim\Flash\Messages;
+};
 
 //middleware dependencies
 $app->add(new \App\Middleware\OldInputMiddleware($container));
