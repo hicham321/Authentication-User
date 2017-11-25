@@ -7,10 +7,10 @@ class ValidationErrorsMiddleware extends Middleware{
 
 
       	if (isset($_SESSION['errors']))
-          {
-        $this->container->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
-         unset($_SESSION['errors']);
-          }
+        {
+          $this->container->view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
+          unset($_SESSION['errors']);
+        }
 
       	
       	$response= $next($request,$response);

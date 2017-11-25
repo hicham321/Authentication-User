@@ -42,6 +42,11 @@ $container['AuthController']= function($container){
 
     return new \App\Http\auth\AuthController($container);
 };
+$container['ChangePasswordController']= function($container){
+
+    return new \App\Http\auth\ChangePasswordController($container);
+};
+
 
 
 //The database
@@ -54,7 +59,7 @@ $container['csrf']= function($container){
 
     return new \Slim\Csrf\Guard;
 };
-// flasjh messages
+// flash messages
 $container['flash']= function($container){
 
     return new \Slim\Flash\Messages;
@@ -64,6 +69,7 @@ $container['flash']= function($container){
 $app->add(new \App\Middleware\OldInputMiddleware($container));
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\CsrfViewMiddleware($container));
+
 $app->add($container->csrf);
 
 v::with('App\\Validation\\Rules\\');

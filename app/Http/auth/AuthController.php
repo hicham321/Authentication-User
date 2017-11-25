@@ -30,8 +30,13 @@ class AuthController extends Controller
        );
     //return to signin page when incorrect
     if (!$auth) {
+
+         $this->flash->addMessage('error',' Could\'t sign in user');
+
          return $response->withRedirect($this->router->pathFor('auth.signin'));   
     }
+    $this->flash->addMessage('info','User signed in with success');
+
 
     return $response->withRedirect($this->router->pathFor('home'));  
     

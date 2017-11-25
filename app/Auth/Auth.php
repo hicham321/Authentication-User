@@ -22,7 +22,7 @@
 
 
 			if (password_verify($password,$user->password)) {
-
+              //Sets the global session variable to the id of the user
 			  $_SESSION['user']=$user->id;
 	          return true;
 
@@ -54,4 +54,21 @@
 	            unset($_SESSION['user']);
 	        }
 	    }
+
+	    //checks if the user is signed in 
+
+		public function changePassword($oldPassword,$newPassword){
+
+			if (isset($_SESSION['user'])) {
+	            $user= User::find($_SESSION['user']);
+	        }
+
+			if (password_verify($oldPassword,$user->password)) {
+               $user->password= password_hash($newPassword,PASSWORD_DEFAULT);
+               $user->save();
+               return true;
+			}
+
+			return false;
+		}
 	}

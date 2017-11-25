@@ -17,7 +17,7 @@
                     {% if auth.check %}
                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.userName }} <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Change Password</a> </li>
+                        <li><a href="{{path_for('auth.changePass')}}">Change Password</a> </li>
                         <li><a href="{{path_for('auth.signOut')}}">Sign out</a> </li>
                     </ul>
                     </li>

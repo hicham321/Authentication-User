@@ -1,0 +1,48 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+<div class="row">
+	
+    <div class="col-md-6 col-md-offset-3">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">  		
+    		   Change Password
+    		</div>
+    		<div class="panel-body">
+    			<form action="{{path_for('auth.changePass')}}" method="post">
+    				
+    				<div class="form-group {{ errors.oldPass ? 'has-error' : ''}}">
+    					<label for="name">Old Password</label>
+    					<input type="password" name="oldPass" id="oldPass"  class="form-control" value="{{ old.oldPass}}">
+                         <span class="help-block">
+                            {% if errors.oldPass %}
+
+                             {{errors.oldPass | first}}
+                            {% endif %}
+                        </span>
+    				</div>
+    				<div class="form-group {{ errors.newPass ? 'has-error' : ''}}">
+    					<label for="password">New Password</label>
+    					<input type="password" name="newPass" id="newPass"  class="form-control" value="{{ old.newPass}}">
+                         <span class="help-block">
+                            {% if errors.newPass %}
+
+                             {{errors.newPass | first}}
+                            {% endif %}
+                        </span>
+    				</div>
+
+    				<button type="submit" class="btn btn-danger">Update Password</button>
+
+                    {{ csrf.field | raw}}
+                    
+
+    			</form>
+    		</div>
+    	</div>
+    </div>
+	
+</div>
+
+{% endblock %}
