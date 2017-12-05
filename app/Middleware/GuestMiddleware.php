@@ -10,7 +10,7 @@ class GuestMiddleware extends Middleware{
         {
 
           $this->container->flash->addMessage('error','user is already authenticated');
-          return $response->withRedirect($this->container->router->pathFor($this->container->view));
+          return $response->withRedirect($this->container->router->pathFor('home'));
         }
 
       	

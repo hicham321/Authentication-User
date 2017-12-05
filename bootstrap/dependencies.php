@@ -1,5 +1,10 @@
 <?php
 use Respect\Validation\Validator as v;
+use App\Translation\TranslatorExtension;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\FileLoader;
+use Illuminate\Translation\Translator;
+
 
 
 //Authentication
@@ -17,6 +22,9 @@ $container['view']= function($container){
      $container->request->getUri()
 
     ));
+     // add translator functions to Twig
+    $view->addExtension(new TranslatorExtension($container->get('translator')));
+
     $view->getEnvironment()->addGlobal('auth', [
      'check' =>$container->auth->checkAuth(),
      'user' => $container->auth->user(),
@@ -26,6 +34,16 @@ $container['view']= function($container){
 
     return $view;
 
+};
+
+//the Translator
+$container['translator']= function($container){
+
+     $loader = new FileLoader(new Filesystem(), $container->get('settings')['translations_path']);
+     // Register the Dutch translator (set to "en" for English)
+     $translator = new Translator($loader, "en");
+
+     return $translator;
 };
 //the validator
 $container['validator']= function($container){
