@@ -20,7 +20,7 @@ $db= [
 $settings= [
     'displayErrorDetails'=> true,
     'db'=>$db,
-    'translations_path' => __DIR__ . 'app/translation/' // path to the translation files
+    'translations_path' => __DIR__ . 'resources/lang/' // path to the translation files
 
 ];
 

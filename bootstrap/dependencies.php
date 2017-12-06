@@ -39,9 +39,9 @@ $container['view']= function($container){
 //the Translator
 $container['translator']= function($container){
 
-     $loader = new FileLoader(new Filesystem(), $container->get('settings')['translations_path']);
-     // Register the Dutch translator (set to "en" for English)
-     $translator = new Translator($loader, "en");
+     $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
+     // Register the french translator (set to "en" for English)
+     $translator = new Translator($loader, "fr");
 
      return $translator;
 };
@@ -64,7 +64,6 @@ $container['ChangePasswordController']= function($container){
 
     return new \App\Http\auth\ChangePasswordController($container);
 };
-
 
 
 //The database
