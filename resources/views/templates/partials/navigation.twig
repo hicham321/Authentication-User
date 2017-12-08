@@ -22,6 +22,12 @@
                     </ul>
                     </li>
                     {% else %}
+                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">lang<span class="caret"></span> </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{path_for('en')}}" >english</a> </li>
+                        <li><a href="{{path_for('fr')}}">french</a> </li>
+                    </ul>
+                    </li>
                     <li><a href="{{ path_for('auth.signup')}}">Sign up</a> </li>
                     <li><a href="{{ path_for('auth.signin')}}">Sign in</a> </li>
                     {% endif %}

@@ -24,7 +24,7 @@ $container['view']= function($container){
     ));
      // add translator functions to Twig
     $view->addExtension(new TranslatorExtension($container->get('translator')));
-
+    
     $view->getEnvironment()->addGlobal('auth', [
      'check' =>$container->auth->checkAuth(),
      'user' => $container->auth->user(),
@@ -39,11 +39,11 @@ $container['view']= function($container){
 //the Translator
 $container['translator']= function($container){
 
-     $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
+    $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
      // Register the french translator (set to "en" for English)
-     $translator = new Translator($loader, "fr");
+    $translator = new Translator($loader, "fr");
 
-     return $translator;
+    return $translator;
 };
 //the validator
 $container['validator']= function($container){
@@ -63,6 +63,11 @@ $container['AuthController']= function($container){
 $container['ChangePasswordController']= function($container){
 
     return new \App\Http\auth\ChangePasswordController($container);
+};
+
+$container['LangController']= function($container){
+
+    return new \App\Http\auth\LangController($container);
 };
 
 

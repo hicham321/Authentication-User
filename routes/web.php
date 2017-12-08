@@ -14,7 +14,13 @@ $app->get('/home','HomeController:index')->setName('home');
 
 $app->get('/info','HomeController:info')->setName('info');
 
+$app->get('/en','LangController:getEnglish')->setName('en');
 
+$app->post('/en','LangController:postEnglish');
+
+$app->get('/fr','LangController:getFrench')->setName('fr');
+
+$app->post('/fr','LangController:postFrench');
 
 
 
