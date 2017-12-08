@@ -39,6 +39,11 @@ composer install
 * [Composer](https://getcomposer.org/) - php dependency manager.
 * [Twig](https://twig.symfony.com/) - Templating engine for php.
 
+## Usage
+
+Run the application and go on (http://localhost/user/public/).
+
+
 
 
  
