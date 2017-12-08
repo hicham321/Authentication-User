@@ -1,6 +1,6 @@
- #Slim-Authentication
+ # Slim-Authentication
  
- This is a skeleton project that implements user authetication (SignIn, SignUp, Changing Paswword), and implements CSRF protection and adds traslation mechanism, this project was mainly created to get you up and running with your Slim web Application.
+ This is a skeleton project that implements user authetication (SignIn, SignUp, Changing Paswword), and implements CSRF protection and adds translation mechanism, this project was mainly created to get you up and running with your Slim web Application.
  
  ### Prerequisites
  I used the Composer dependency manager to install my dependencies, the dependencies can be found in the project's Composer.json file:
@@ -35,9 +35,9 @@ composer install
 ```
 ## Built With
 
-[Slim 3](https://www.slimframework.com/) - The web framework used.
-[Composer](https://getcomposer.org/) - php dependency manager.
-[Twig](https://twig.symfony.com/) - Templating engine for php.
+* [Slim 3](https://www.slimframework.com/) - The web framework used.
+* [Composer](https://getcomposer.org/) - php dependency manager.
+* [Twig](https://twig.symfony.com/) - Templating engine for php.
 
 
 
