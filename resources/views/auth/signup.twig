@@ -7,13 +7,13 @@
     <div class="col-md-6 col-md-offset-3">
     	<div class="panel panel-default">
     		<div class="panel-heading">  		
-    		   SignUp
+    		   {{ trans('messages.signup') }} 
     		</div>
     		<div class="panel-body">
     			<form action="{{path_for('auth.signup')}}" method="post">
     				<div class="form-group {{ errors.email ? 'has-error' : ''}}" >
-    					<label for="email">Email</label>
-    					<input type="email" name="email" id="email" placeholder="you@domain.com" class="form-control" value="{{ old.email}}">
+    					<label for="email"> {{ trans('messages.email') }} </label>
+    					<input type="email" name="email" id="email" placeholder="{{ trans('messages.emailDomain') }} " class="form-control" value="{{ old.email}}">
                         <span class="help-block">
                             {% if errors.email %}
 
@@ -23,8 +23,8 @@
     				</div>
 
     				<div class="form-group {{ errors.name ? 'has-error' : ''}}">
-    					<label for="name">Name</label>
-    					<input type="text" name="name" id="name" placeholder="your name" class="form-control" value="{{ old.name}}">
+    					<label for="name">{{ trans('messages.name') }} </label>
+    					<input type="text" name="name" id="name" placeholder="{{ trans('messages.yourName') }} " class="form-control" value="{{ old.name}}">
                          <span class="help-block">
                             {% if errors.name %}
 
@@ -33,7 +33,7 @@
                         </span>
     				</div>
     				<div class="form-group {{ errors.password ? 'has-error' : ''}}">
-    					<label for="password">Password</label>
+    					<label for="password">{{ trans('messages.password') }}</label>
     					<input type="password" name="password" id="password"  class="form-control" value="{{ old.name}}">
                          <span class="help-block">
                             {% if errors.password %}
@@ -43,7 +43,7 @@
                         </span>
     				</div>
 
-    				<button type="submit" class="btn btn-danger">Sign Up</button>
+    				<button type="submit" class="btn btn-danger">{{ trans('messages.signup') }} </button>
 
                     {{ csrf.field | raw}}
                     

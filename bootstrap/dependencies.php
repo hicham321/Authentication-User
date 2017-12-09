@@ -23,7 +23,7 @@ $container['view']= function($container){
 
     ));
      // add translator functions to Twig
-    $view->addExtension(new TranslatorExtension($container->get('translator')));
+    //$view->addExtension(new TranslatorExtension($container->get('translator')));
     
     $view->getEnvironment()->addGlobal('auth', [
      'check' =>$container->auth->checkAuth(),
@@ -36,7 +36,7 @@ $container['view']= function($container){
 
 };
 
-//the Translator
+/*//the Translator
 $container['translator']= function($container){
 
     $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
@@ -45,6 +45,7 @@ $container['translator']= function($container){
 
     return $translator;
 };
+*/
 //the validator
 $container['validator']= function($container){
 
@@ -65,10 +66,6 @@ $container['ChangePasswordController']= function($container){
     return new \App\Http\auth\ChangePasswordController($container);
 };
 
-$container['LangController']= function($container){
-
-    return new \App\Http\auth\LangController($container);
-};
 
 
 //The database
@@ -91,6 +88,27 @@ $container['flash']= function($container){
 $app->add(new \App\Middleware\OldInputMiddleware($container));
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\CsrfViewMiddleware($container));
+//$app->add(new \App\Middleware\LangMiddleware($container));
+
+$app->add(function (\Slim\Http\Request $request, $response, $next) use ($container) {
+    $lang = $request->getHeader('Accept-Language');
+
+    // $lang could be something like 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7'
+    // see above link for more information about parsing it
+    //$parsedLang = parseLang($lang);
+    $parsedLang='fr';
+
+    $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
+
+    $translator = new Translator($loader, $parsedLang);
+
+    // add the extension to twig
+    $view = $container->get('view');
+    $view->addExtension(new TranslatorExtension($translator));
+
+    // execute the other middleware and the actual route
+    return $next($request, $response);
+});
 
 $app->add($container->csrf);
 
