@@ -17,12 +17,6 @@ return [
     'name' => 'Nom',
     'yourName' => 'Votre Nom',
     'oldPass' => 'Ancien Mot De passe',
-
     'newPass' => 'Nouveau Mot De passe',
     'updatePass' => 'Modifier le mot de passe',
-
-
-
-
-
 ];

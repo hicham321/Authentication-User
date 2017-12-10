@@ -1,9 +1,11 @@
 <?php
 use Respect\Validation\Validator as v;
-use App\Translation\TranslatorExtension;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
+use App\Translation\TranslatorExtension;
+use \App\Auth\Lang as language;
+
 
 
 
@@ -36,16 +38,6 @@ $container['view']= function($container){
 
 };
 
-/*//the Translator
-$container['translator']= function($container){
-
-    $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
-     // Register the french translator (set to "en" for English)
-    $translator = new Translator($loader, "fr");
-
-    return $translator;
-};
-*/
 //the validator
 $container['validator']= function($container){
 
@@ -88,29 +80,38 @@ $container['flash']= function($container){
 $app->add(new \App\Middleware\OldInputMiddleware($container));
 $app->add(new \App\Middleware\ValidationErrorsMiddleWare($container));
 $app->add(new \App\Middleware\CsrfViewMiddleware($container));
-//$app->add(new \App\Middleware\LangMiddleware($container));
-
 $app->add(function (\Slim\Http\Request $request, $response, $next) use ($container) {
-    $lang = $request->getHeader('Accept-Language');
 
-    // $lang could be something like 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7'
-    // see above link for more information about parsing it
-    //$parsedLang = parseLang($lang);
-    $parsedLang='fr';
+        //$lang = $request->getHeader('Accept-Language');
+        $prefLocales = array_reduce(explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']), 
+                    function ($res, $el) { 
 
-    $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
+                        list($l, $q) = array_merge(explode(';q=', $el), [1]); 
+                        $res[$l] = (float) $q; 
+                        return $res; 
 
-    $translator = new Translator($loader, $parsedLang);
+                    }, []);
 
-    // add the extension to twig
-    $view = $container->get('view');
-    $view->addExtension(new TranslatorExtension($translator));
+        arsort($prefLocales);
+        
+        // $lang could be something like 'de-DE,de;q=0.9,en-US;q=0.8,en;q=0.7'
+        // see above link for more information about parsing it
+        //$parsedLang = parseLang($lang);
+        $parsedLang= language::chooseLanguage($prefLocales);
+        $loader = new FileLoader(new Filesystem(),  __DIR__ . '/../resources/lang' );
 
-    // execute the other middleware and the actual route
-    return $next($request, $response);
-});
+        $translator = new Translator($loader, $parsedLang);
 
-$app->add($container->csrf);
+        // add the extension to twig
+        $container->view->addExtension(new TranslatorExtension($translator));
+
+        // execute the other middleware and the actual route
+         
+            
+
+        return $next($request,$response);;
+    });
+
 
 v::with('App\\Validation\\Rules\\');
 

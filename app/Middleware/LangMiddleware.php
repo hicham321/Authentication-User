@@ -1,7 +1,12 @@
 <?php
 
-namespace App\Middleware\LangMiddleware;
+namespace App\Middleware;
 
+use App\Translation\TranslatorExtension;
+
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\FileLoader;
+use Illuminate\Translation\Translator;
 
 
 /**
@@ -10,18 +15,11 @@ namespace App\Middleware\LangMiddleware;
 class LangMiddleware extends Middleware
 {
 
-	public function __invoke($request, $response, $next){
+	public function __invoke(\Slim\Http\request $request, $response, $next)  {
         
-        if(isset($_SESSION['lang'])){
-
-      	    $this->container->view->getEnvironment()->addGlobal('lang',$_SESSION['lang']);
-        }
-      	$_SESSION['lang']= $request->getParams();
-      	$response= $next($request,$response);
-      	
-
-      	return $response;
-      }
-	
+       
+    }
+    
+   
 	
 }
